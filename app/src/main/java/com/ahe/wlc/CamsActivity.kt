@@ -7,10 +7,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.CalendarView
 import android.widget.ListView
 import com.google.gson.Gson
-import android.webkit.WebView
 
 
 
@@ -43,9 +41,9 @@ class CamsActivity : AppCompatActivity() {
 
         camList.onItemClickListener = object : AdapterView.OnItemClickListener{
             override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                val intent = Intent(Intent.ACTION_VIEW)
-                intent.addCategory(Intent.CATEGORY_BROWSABLE)
-                intent.setDataAndType(Uri.parse("file:///android_asset/my_page.html"), "text/html")
+                var camObject=cityObj.Cams[p2]
+                var intent = Intent(this@CamsActivity,PlayerActivity::class.java)
+                intent.putExtra("htmlContent", Gson().toJson(camObject, Cam::class.java))
                 startActivity(intent)
             }
 
