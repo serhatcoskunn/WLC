@@ -19,7 +19,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:background="@drawable/oval"/>
 
         <android.support.v7.widget.SearchView
             android:layout_width="175dp"
@@ -27,7 +28,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageButton2"
             app:layout_constraintStart_toEndOf="@+id/imageButton"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/rectangle"/>
 
         <ImageButton
             android:id="@+id/imageButton"
@@ -35,7 +37,8 @@
             android:layout_height="100dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/oval"/>
 
     </android.support.constraint.ConstraintLayout>
 
