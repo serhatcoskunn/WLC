@@ -4,6 +4,8 @@ import android.content.Intent
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -18,13 +20,13 @@ class CamsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cams)
 
-        var camList=findViewById<ListView>(R.id.listview_cams)
+        //var camList=findViewById<ListView>(R.id.listview_cams)
 
         var city=intent.getStringExtra("city")
 
         var cityObj= Gson().fromJson(city, City::class.java)
 
-        var ulkeler=ArrayList<String>()
+       /* var ulkeler=ArrayList<String>()
 
         for (city in cityObj.Cams)
         {
@@ -47,6 +49,22 @@ class CamsActivity : AppCompatActivity() {
                 startActivity(intent)
             }
 
-        }
+        }*/
+
+        var adapterCams=AdapterCams(this,cityObj.Cams)
+        adapterCams.setOnItemClickListener(object :AdapterCams.OnItemClickListener{
+            override fun OnItemClick(cam: Cam) {
+                var intent = Intent(this@CamsActivity,PlayerActivity::class.java)
+                intent.putExtra("htmlContent", Gson().toJson(cam, Cam::class.java))
+                startActivity(intent)
+            }
+        })
+
+
+        var layoutManager:LinearLayoutManager= LinearLayoutManager(this@CamsActivity, LinearLayoutManager.VERTICAL,false)
+        var recyclerCams=findViewById<RecyclerView>(R.id.recycler_cams)
+        recyclerCams.layoutManager=layoutManager
+        recyclerCams.adapter=adapterCams
+
     }
 }

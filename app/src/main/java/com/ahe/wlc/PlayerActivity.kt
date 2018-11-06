@@ -32,6 +32,7 @@ class PlayerActivity : AppCompatActivity() {
 
         if(camObj.CamType==0)
         {
+            Toast.makeText(this@PlayerActivity,"${link.substring(0, link.length - 3)}",Toast.LENGTH_SHORT).show()
             str="<!DOCTYPE html>\n" +
                     "<html>\n" +
                     "<style>\n" +
@@ -63,7 +64,7 @@ class PlayerActivity : AppCompatActivity() {
                     "  if(flag)\n" +
                     "  {\n" +
                     "\tflag=false;\n" +
-                    "\tvar fl=\"http://37.142.116.227:80/cgi-bin/camera?resolution=640&amp;amp;amp;quality=1&amp;amp;amp;Language=0&amp;amp;amp;\";\n" +
+                    "\tvar fl=\""+link.substring(0, link.length - 3)+"\";\n" +
                     "\tvar ts=Math.floor(new Date().getTime()/1000);\n" +
                     "\tdocument.getElementById(\"myImg\").src = fl+ts;\n" +
                     "  }\n" +
@@ -79,7 +80,7 @@ class PlayerActivity : AppCompatActivity() {
                     "<body onload=\"myFunction()\">\n" +
                     "\n" +
                     "<img id=\"myImg\" onload=\"setLoad()\" class=\"content\"\n" +
-                    "src=\""+link.substring(0, link.length - 1)+"\">\n" +
+                    "src=\""+link.substring(0, link.length - 3)+"\">\n" +
                     "</body>\n" +
                     "\n" +
                     "</html>"
