@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_item_cam.view.*
 
-class AdapterCams(var context: Context,var camList:ArrayList<Cam>) : RecyclerView.Adapter<AdapterCams.ViewHolder>() {
+class AdapterCams(var context: Context,var camList:ArrayList<Cam>,var gyroscopeObserver: GyroscopeObserver?) : RecyclerView.Adapter<AdapterCams.ViewHolder>() {
 
     private var onItemClickListener:OnItemClickListener?=null
 
@@ -29,7 +29,7 @@ class AdapterCams(var context: Context,var camList:ArrayList<Cam>) : RecyclerVie
     class ViewHolder(view: View):RecyclerView.ViewHolder(view) {
         val camItem=view
         val camName=view.tV_cam
-        val camImg=view.iV_cam
+        val camImg=view.iV_cam as PanoramaImageView
     }
 
     override fun getItemCount(): Int {
@@ -38,7 +38,17 @@ class AdapterCams(var context: Context,var camList:ArrayList<Cam>) : RecyclerVie
 
     override fun onBindViewHolder(holder: AdapterCams.ViewHolder, position: Int) {
         holder?.camName?.text=camList[position].CamLink
-        Picasso.get().load(camList[position].CamLink).into(holder?.camImg)
+        var img=camList[position].CamLink
+        if(camList[position].CamLink.contains("mjpg/video.mjpg"))
+        {
+            img=camList[position].CamLink.replace("mjpg/video.mjpg","jpg/image.jpg")
+        }
+        img=img.replace("&amp;","&")
+
+
+
+        holder?.camImg.setGyroscopeObserver(gyroscopeObserver)
+        Picasso.get().load(img).into(holder?.camImg)
 
         holder?.camItem.setOnClickListener {
 

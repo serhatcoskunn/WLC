@@ -16,9 +16,12 @@ import com.google.gson.Gson
 
 class CamsActivity : AppCompatActivity() {
 
+    private var gyroscopeObserver: GyroscopeObserver? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cams)
+        gyroscopeObserver = GyroscopeObserver()
 
         //var camList=findViewById<ListView>(R.id.listview_cams)
 
@@ -51,7 +54,7 @@ class CamsActivity : AppCompatActivity() {
 
         }*/
 
-        var adapterCams=AdapterCams(this,cityObj.Cams)
+        var adapterCams=AdapterCams(this,cityObj.Cams,gyroscopeObserver)
         adapterCams.setOnItemClickListener(object :AdapterCams.OnItemClickListener{
             override fun OnItemClick(cam: Cam) {
                 var intent = Intent(this@CamsActivity,PlayerActivity::class.java)
@@ -66,5 +69,15 @@ class CamsActivity : AppCompatActivity() {
         recyclerCams.layoutManager=layoutManager
         recyclerCams.adapter=adapterCams
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        gyroscopeObserver!!.register(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        gyroscopeObserver!!.unregister()
     }
 }
